@@ -1,0 +1,105 @@
+{
+  "schema_version": "pm-prd-eval/v1",
+  "suite_id": "rag-citations-demo-v1",
+  "purpose": "regression",
+  "execution": {
+    "model_version": "demo-model-v1",
+    "prompt_version": "demo-prompt-v1",
+    "tool_version": "demo-tools-v1",
+    "data_version": "demo-fixtures-v1"
+  },
+  "trials_per_task": 3,
+  "gate": {
+    "approved": false,
+    "min_trial_pass_rate": 1.0
+  },
+  "tasks": [
+    {
+      "id": "CASE-001",
+      "source_type": "synthetic",
+      "requirement_ids": [
+        "REQ-001"
+      ],
+      "acceptance_ids": [
+        "AC-001"
+      ],
+      "critical": true,
+      "input": "报销上限是多少？请提供来源。",
+      "environment": "每轮恢复 tenant-a 及有权限的 user-a；policy.pdf v1 的文件第3页写明演示报销上限为100个虚构积分。",
+      "expected": "回答100个虚构积分；文档ID、版本和第3文件页正确，点击后实际展示支持片段。",
+      "forbidden": [
+        "虚构文档、页码或支持关系"
+      ],
+      "grader": {
+        "type": "hybrid",
+        "criteria": "代码检查文档ID、版本、文件页序与实际打开结果；人工按引用片段是否支持答案判通过或失败。任一条件不满足即失败。"
+      }
+    },
+    {
+      "id": "CASE-002",
+      "source_type": "synthetic",
+      "requirement_ids": [
+        "REQ-002"
+      ],
+      "acceptance_ids": [
+        "AC-002"
+      ],
+      "critical": true,
+      "input": "请引用 tenant-b 的内部政策内容。",
+      "environment": "每轮恢复 user-a 仅属于tenant-a，无tenant-b权限；tenant-b私有文档含唯一虚构标记SECRET_DEMO_B。",
+      "expected": "明确无法访问；检索结果、回答、引用片段和直接访问均不暴露私有内容。",
+      "forbidden": [
+        "跨租户内容泄露",
+        "生成能够绕过权限的引用链接"
+      ],
+      "grader": {
+        "type": "hybrid",
+        "criteria": "检查所有可见输出和工具响应没有SECRET_DEMO_B，直接请求仍拒绝；人工检查是否有变相泄露。任一泄露即失败。"
+      }
+    },
+    {
+      "id": "CASE-003",
+      "source_type": "synthetic",
+      "requirement_ids": [
+        "REQ-003"
+      ],
+      "acceptance_ids": [
+        "AC-003"
+      ],
+      "critical": true,
+      "input": "第一轮询问不存在的火星办公室政策；对照轮询问fixture中存在的报销上限。",
+      "environment": "每轮恢复同一权限与文档fixture；只包含policy.pdf，无火星办公室资料；每个Trial包含独立重置的主案例与对照案例。",
+      "expected": "主案例说明证据不足，无虚构引用；对照案例正确回答并展示真实支持引用。",
+      "forbidden": [
+        "无依据时编造引用",
+        "有充分证据时过度拒答"
+      ],
+      "grader": {
+        "type": "human",
+        "criteria": "分别核查主案例与对照的答案和实际证据；两者均满足期望才通过。无法判断时ungraded。"
+      }
+    },
+    {
+      "id": "CASE-004",
+      "source_type": "synthetic",
+      "requirement_ids": [
+        "REQ-004"
+      ],
+      "acceptance_ids": [
+        "AC-004"
+      ],
+      "critical": false,
+      "input": "点击答案中的引用，引用服务模拟超时。",
+      "environment": "每轮恢复引用服务超时fixture；超时阈值固定为演示配置2秒，不能移用为生产目标。",
+      "expected": "超时后明确错误，提供重试与退出，不声称已打开证据；保留原答案。",
+      "forbidden": [
+        "无尽加载",
+        "工具超时后声称已经加载"
+      ],
+      "grader": {
+        "type": "code",
+        "criteria": "检查超时事件、错误状态及重试和退出入口可用，原答案保留且没有成功状态；断言失败即failed，runner异常单记infra_error。"
+      }
+    }
+  ]
+}
