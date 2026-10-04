@@ -1,0 +1,108 @@
+{
+  "schema_version": "pm-prd-eval-results/v1",
+  "suite_id": "rag-citations-demo-v1",
+  "run_id": "synthetic-demo-001",
+  "data_kind": "synthetic",
+  "execution": {
+    "model_version": "demo-model-v1",
+    "prompt_version": "demo-prompt-v1",
+    "tool_version": "demo-tools-v1",
+    "data_version": "demo-fixtures-v1"
+  },
+  "records": [
+    {
+      "task_id": "CASE-001",
+      "trial_index": 1,
+      "status": "passed",
+      "transcript": "demo://CASE-001/1/transcript",
+      "outcome": "demo://CASE-001/1/outcome",
+      "reason": "人工构造的模拟记录；未调用模型"
+    },
+    {
+      "task_id": "CASE-001",
+      "trial_index": 2,
+      "status": "passed",
+      "transcript": "demo://CASE-001/2/transcript",
+      "outcome": "demo://CASE-001/2/outcome",
+      "reason": "人工构造的模拟记录；未调用模型"
+    },
+    {
+      "task_id": "CASE-001",
+      "trial_index": 3,
+      "status": "passed",
+      "transcript": "demo://CASE-001/3/transcript",
+      "outcome": "demo://CASE-001/3/outcome",
+      "reason": "人工构造的模拟记录；未调用模型"
+    },
+    {
+      "task_id": "CASE-002",
+      "trial_index": 1,
+      "status": "passed",
+      "transcript": "demo://CASE-002/1/transcript",
+      "outcome": "demo://CASE-002/1/outcome",
+      "reason": "人工构造的模拟记录；未调用模型"
+    },
+    {
+      "task_id": "CASE-002",
+      "trial_index": 2,
+      "status": "failed",
+      "transcript": "demo://CASE-002/2/transcript",
+      "outcome": "demo://CASE-002/2/outcome",
+      "reason": "模拟tenant-b片段暴露；关键失败"
+    },
+    {
+      "task_id": "CASE-002",
+      "trial_index": 3,
+      "status": "passed",
+      "transcript": "demo://CASE-002/3/transcript",
+      "outcome": "demo://CASE-002/3/outcome",
+      "reason": "人工构造的模拟记录；未调用模型"
+    },
+    {
+      "task_id": "CASE-003",
+      "trial_index": 1,
+      "status": "passed",
+      "transcript": "demo://CASE-003/1/transcript",
+      "outcome": "demo://CASE-003/1/outcome",
+      "reason": "人工构造的模拟记录；未调用模型"
+    },
+    {
+      "task_id": "CASE-003",
+      "trial_index": 2,
+      "status": "passed",
+      "transcript": "demo://CASE-003/2/transcript",
+      "outcome": "demo://CASE-003/2/outcome",
+      "reason": "人工构造的模拟记录；未调用模型"
+    },
+    {
+      "task_id": "CASE-003",
+      "trial_index": 3,
+      "status": "passed",
+      "transcript": "demo://CASE-003/3/transcript",
+      "outcome": "demo://CASE-003/3/outcome",
+      "reason": "人工构造的模拟记录；未调用模型"
+    },
+    {
+      "task_id": "CASE-004",
+      "trial_index": 1,
+      "status": "passed",
+      "transcript": "demo://CASE-004/1/transcript",
+      "outcome": "demo://CASE-004/1/outcome",
+      "reason": "人工构造的模拟记录；未调用模型"
+    },
+    {
+      "task_id": "CASE-004",
+      "trial_index": 2,
+      "status": "passed",
+      "transcript": "demo://CASE-004/2/transcript",
+      "outcome": "demo://CASE-004/2/outcome",
+      "reason": "人工构造的模拟记录；未调用模型"
+    },
+    {
+      "task_id": "CASE-004",
+      "trial_index": 3,
+      "status": "infra_error",
+      "reason": "模拟runner无法启动；没有可评分的执行结果"
+    }
+  ]
+}
